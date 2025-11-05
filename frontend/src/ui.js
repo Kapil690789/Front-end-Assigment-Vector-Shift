@@ -1,4 +1,4 @@
-// ui.js
+// frontend/src/ui.js
 // Displays the drag-and-drop UI
 // --------------------------------------------------
 
@@ -80,7 +80,7 @@ export const PipelineUI = () => {
             addNode(newNode);
           }
         },
-        [reactFlowInstance]
+        [reactFlowInstance, addNode, getNodeID] // Fixed the ESLint warning
     );
 
     const onDragOver = useCallback((event) => {
@@ -90,7 +90,8 @@ export const PipelineUI = () => {
 
     return (
         <>
-        <div ref={reactFlowWrapper} style={{width: '100wv', height: '70vh'}}>
+        {/* Make the wrapper div fill the 'flex-grow' container from App.js */}
+        <div ref={reactFlowWrapper} style={{width: '100%', height: '75vh'}}>
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
@@ -105,9 +106,18 @@ export const PipelineUI = () => {
                 snapGrid={[gridSize, gridSize]}
                 connectionLineType='smoothstep'
             >
-                <Background color="#aaa" gap={gridSize} />
+                {/* Change background color */}
+                <Background color="#444" gap={gridSize} />
                 <Controls />
-                <MiniMap />
+                {/* Style the minimap */}
+                <MiniMap 
+                  style={{
+                    backgroundColor: '#333',
+                    border: '1px solid #555',
+                  }}
+                  nodeColor="#fff"
+                  maskColor="#55555580"
+                />
             </ReactFlow>
         </div>
         </>

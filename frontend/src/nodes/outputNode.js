@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Handle, Position } from 'reactflow';
-import { BaseNode } from './BaseNode'; // Import BaseNode
+import { BaseNode } from './BaseNode'; 
 
 export const OutputNode = ({ id, data }) => {
   const [currName, setCurrName] = useState(data?.outputName || id.replace('customOutput-', 'output_'));
@@ -16,33 +16,36 @@ export const OutputNode = ({ id, data }) => {
     setOutputType(e.target.value);
   };
 
-  // Pass 'Output' as the label
   const nodeData = { ...data, label: 'Output' };
 
+  // Helper class for all form elements
+  const formElementClass = "nodrag nopan nowheel block w-full rounded-md border-0 p-1.5 bg-neutral-700 text-white shadow-sm ring-1 ring-inset ring-neutral-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6";
+
   return (
-    // Use BaseNode as the wrapper
     <BaseNode data={nodeData}>
       
-      {/* Target Handle */}
       <Handle
         type="target"
         position={Position.Left}
         id={`${id}-value`}
       />
 
-      {/* Node Content */}
-      <label style={{ display: 'block', marginBottom: '5px' }}>
+      <label className="text-sm font-medium leading-6 text-gray-300">
         Name:
         <input 
           type="text" 
           value={currName} 
           onChange={handleNameChange} 
-          style={{ width: '100%' }}
+          className={formElementClass} // <-- Added classes
         />
       </label>
-      <label style={{ display: 'block' }}>
+      <label className="mt-2 block text-sm font-medium leading-6 text-gray-300">
         Type:
-        <select value={outputType} onChange={handleTypeChange} style={{ width: '100%' }}>
+        <select 
+          value={outputType} 
+          onChange={handleTypeChange} 
+          className={formElementClass} // <-- Added classes
+        >
           <option value="Text">Text</option>
           <option value="File">Image</option>
         </select>

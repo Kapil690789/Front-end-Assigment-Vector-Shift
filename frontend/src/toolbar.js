@@ -1,12 +1,15 @@
-// toolbar.js
+// frontend/src/toolbar.js
 
 import { DraggableNode } from './draggableNode';
 
 export const PipelineToolbar = () => {
-
     return (
-        <div style={{ padding: '10px' }}>
-            <div style={{ marginTop: '20px', display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+        // Main container: dark background, padding, shadow
+        <div 
+          className="bg-neutral-900 p-3 shadow-md border-b border-neutral-700"
+        >
+            {/* Flex container for the nodes */}
+            <div className="flex flex-wrap gap-3">
                 <DraggableNode type='customInput' label='Input' />
                 <DraggableNode type='llm' label='LLM' />
                 <DraggableNode type='customOutput' label='Output' />

@@ -1,7 +1,8 @@
-// outputNode.js
+// frontend/src/nodes/outputNode.js
 
 import { useState } from 'react';
 import { Handle, Position } from 'reactflow';
+import { BaseNode } from './BaseNode'; // Import BaseNode
 
 export const OutputNode = ({ id, data }) => {
   const [currName, setCurrName] = useState(data?.outputName || id.replace('customOutput-', 'output_'));
@@ -15,33 +16,37 @@ export const OutputNode = ({ id, data }) => {
     setOutputType(e.target.value);
   };
 
+  // Pass 'Output' as the label
+  const nodeData = { ...data, label: 'Output' };
+
   return (
-    <div style={{width: 200, height: 80, border: '1px solid black'}}>
+    // Use BaseNode as the wrapper
+    <BaseNode data={nodeData}>
+      
+      {/* Target Handle */}
       <Handle
         type="target"
         position={Position.Left}
         id={`${id}-value`}
       />
-      <div>
-        <span>Output</span>
-      </div>
-      <div>
-        <label>
-          Name:
-          <input 
-            type="text" 
-            value={currName} 
-            onChange={handleNameChange} 
-          />
-        </label>
-        <label>
-          Type:
-          <select value={outputType} onChange={handleTypeChange}>
-            <option value="Text">Text</option>
-            <option value="File">Image</option>
-          </select>
-        </label>
-      </div>
-    </div>
+
+      {/* Node Content */}
+      <label style={{ display: 'block', marginBottom: '5px' }}>
+        Name:
+        <input 
+          type="text" 
+          value={currName} 
+          onChange={handleNameChange} 
+          style={{ width: '100%' }}
+        />
+      </label>
+      <label style={{ display: 'block' }}>
+        Type:
+        <select value={outputType} onChange={handleTypeChange} style={{ width: '100%' }}>
+          <option value="Text">Text</option>
+          <option value="File">Image</option>
+        </select>
+      </label>
+    </BaseNode>
   );
 }

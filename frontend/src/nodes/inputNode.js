@@ -1,7 +1,7 @@
-// inputNode.js
 
 import { useState } from 'react';
 import { Handle, Position } from 'reactflow';
+import { BaseNode } from './BaseNode'; // <-- This is correct
 
 export const InputNode = ({ id, data }) => {
   const [currName, setCurrName] = useState(data?.inputName || id.replace('customInput-', 'input_'));
@@ -15,33 +15,39 @@ export const InputNode = ({ id, data }) => {
     setInputType(e.target.value);
   };
 
+  // Pass the title 'Input' to the BaseNode's data prop
+  const nodeData = { ...data, label: 'Input' };
+
   return (
-    <div style={{width: 200, height: 80, border: '1px solid black'}}>
-      <div>
-        <span>Input</span>
-      </div>
-      <div>
-        <label>
-          Name:
-          <input 
-            type="text" 
-            value={currName} 
-            onChange={handleNameChange} 
-          />
-        </label>
-        <label>
-          Type:
-          <select value={inputType} onChange={handleTypeChange}>
-            <option value="Text">Text</option>
-            <option value="File">File</option>
-          </select>
-        </label>
-      </div>
+    // ---- START OF CHANGES ----
+    // Use BaseNode as the wrapper
+    <BaseNode data={nodeData}>
+      
+      {/* This is the 'children' part for BaseNode */}
+      <label style={{ display: 'block', marginBottom: '5px' }}>
+        Name:
+        <input 
+          type="text" 
+          value={currName} 
+          onChange={handleNameChange} 
+          style={{ width: '100%' }}
+        />
+      </label>
+      <label style={{ display: 'block' }}>
+        Type:
+        <select value={inputType} onChange={handleTypeChange} style={{ width: '100%' }}>
+          <option value="Text">Text</option>
+          <option value="File">File</option>
+        </select>
+      </label>
+      
+      {/* The Handle is now inside BaseNode's children */}
       <Handle
         type="source"
         position={Position.Right}
         id={`${id}-value`}
       />
-    </div>
+    </BaseNode>
+    // ---- END OF CHANGES ----
   );
 }

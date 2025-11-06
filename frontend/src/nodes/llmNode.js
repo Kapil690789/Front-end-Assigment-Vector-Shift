@@ -1,37 +1,27 @@
-// frontend/src/nodes/llmNode.js
-
 import { Handle, Position } from 'reactflow';
-import { BaseNode } from './BaseNode'; // Import BaseNode
+import { BaseNode } from './BaseNode';
+import { FiCpu } from 'react-icons/fi';
 
 export const LLMNode = ({ id, data }) => {
-
-  // Pass 'LLM' as the label
   const nodeData = { ...data, label: 'LLM' };
 
   return (
-    // Use BaseNode as the wrapper
-    <BaseNode data={nodeData}>
-      
-      {/* Target Handles */}
+    <BaseNode data={nodeData} icon={FiCpu}>
       <Handle
         type="target"
         position={Position.Left}
         id={`${id}-system`}
-        style={{top: '45%'}} // Adjusted position
+        style={{top: '45%'}}
       />
       <Handle
         type="target"
         position={Position.Left}
         id={`${id}-prompt`}
-        style={{top: '65%'}} // Adjusted position
+        style={{top: '65%'}}
       />
-      
-      {/* Node Content */}
       <div style={{ padding: '5px 0' }}>
         <span>This is a LLM.</span>
       </div>
-
-      {/* Source Handle */}
       <Handle
         type="source"
         position={Position.Right}

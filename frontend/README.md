@@ -1,70 +1,178 @@
-# Getting Started with Create React App
+# VectorShift - Frontend Technical Assessment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack, interactive pipeline editor for building, validating, and analyzing node-based workflows with a React frontend and FastAPI backend.
 
-## Available Scripts
+## 🚀 Core Features
 
-In the project directory, you can run:
+### Assignment Requirements
 
-### `npm start`
+**Part 1: Node Abstraction**  
+A flexible `BaseNode.js` component powers all node types (Input, LLM, Output, Text), ensuring consistent design and reusable logic across the application.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Part 2: Styling**  
+Professional dark-theme UI built from scratch using Tailwind CSS, providing a cohesive visual experience throughout the application.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Part 3: Dynamic Text Node**  
+Fully functional text node with automatic variable detection. Parses content for `{{variable}}` patterns and dynamically creates input handles. Features `TextareaAutosize` for seamless content expansion.
 
-### `npm test`
+**Part 4: Backend Integration**  
+The Submit button sends pipeline data to a FastAPI backend that validates the workflow as a Directed Acyclic Graph (DAG) and returns a detailed analysis report.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## ✨ Bonus Features
 
-### `npm run build`
+- **Save & Restore**: Workflows persist in localStorage, preventing data loss on page refresh
+- **Comprehensive Testing**: Full pytest suite validates backend DAG logic
+- **Smart API Response**: Backend returns topological execution order, not just boolean validation
+- **Professional UX/UI**:
+  - Non-blocking toast notifications via `react-hot-toast`
+  - Loading states with disabled submit button during API calls
+  - Icon-enhanced nodes using `react-icons`
+  - Keyboard shortcuts (Backspace/Delete) for node and edge deletion
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 💻 Tech Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Frontend**
+- React
+- React Flow
+- Zustand (state management)
+- Tailwind CSS
+- react-hot-toast
+- react-icons
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Backend**
+- Python 3
+- FastAPI
+- Uvicorn
 
-### `npm run eject`
+**Testing**
+- pytest
+- httpx
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🛠️ Setup and Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Prerequisites
+- Node.js and npm
+- Python 3.8+
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Backend Setup
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+# Navigate to the backend directory
+cd backend
 
-## Learn More
+# Create a Python virtual environment
+python -m venv venv
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Activate the virtual environment
+# macOS/Linux:
+source venv/bin/activate
+# Windows:
+venv\Scripts\activate
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Install dependencies
+pip install -r requirements.txt
 
-### Code Splitting
+# Start the backend server
+uvicorn main:app --reload
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The backend will be available at `http://127.0.0.1:8000`
 
-### Analyzing the Bundle Size
+### Frontend Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Open a new terminal:
 
-### Making a Progressive Web App
+```bash
+# Navigate to the frontend directory
+cd frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# Install dependencies
+npm install
 
-### Advanced Configuration
+# Start the development server
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The application will open automatically at `http://localhost:3000`
 
-### Deployment
+## 🧪 Running Tests
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The backend includes comprehensive pytest coverage for DAG validation logic.
 
-### `npm run build` fails to minify
+```bash
+# Navigate to the backend directory
+cd backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Activate the virtual environment
+source venv/bin/activate  # or venv\Scripts\activate on Windows
+
+# Run the test suite
+pytest
+```
+
+Expected output: All 3 tests pass (`test_valid_dag`, `test_invalid_dag_with_cycle`, `test_read_root`)
+
+## 📝 Generating Requirements
+
+To regenerate `requirements.txt` after adding new dependencies:
+
+```bash
+cd backend
+source venv/bin/activate
+pip freeze > requirements.txt
+```
+
+## 🎯 Usage
+
+1. **Build Your Pipeline**: Drag nodes from the sidebar onto the canvas
+2. **Connect Nodes**: Create edges by dragging from output handles to input handles
+3. **Configure Variables**: Use `{{variable}}` syntax in Text nodes to create dynamic inputs
+4. **Validate**: Click Submit to analyze your pipeline's structure
+5. **Save**: Your work is automatically preserved in localStorage
+
+## 📂 Project Structure
+
+```
+.
+├── backend/
+│   ├── __pycache__/
+│   ├── main.py
+│   └── test_main.py
+├── frontend/
+│   ├── node_modules/
+│   ├── public/
+│   ├── src/
+│   │   ├── nodes/
+│   │   │   ├── BaseNode.js
+│   │   │   ├── inputNode.js
+│   │   │   ├── llmNode.js
+│   │   │   ├── outputNode.js
+│   │   │   └── textNode.js
+│   │   ├── App.js
+│   │   ├── draggableNode.js
+│   │   ├── FlowControls.js
+│   │   ├── index.css
+│   │   ├── index.js
+│   │   ├── store.js
+│   │   ├── submit.js
+│   │   ├── toolbar.js
+│   │   └── ui.js
+│   ├── .gitignore
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   ├── README.md
+│   └── VectorShift - Frontend Technical Assessment.pdf
+├── emphasized items
+└── README.md
+```
+
+## 🔍 API Endpoints
+
+- `GET /` - Health check endpoint
+- `POST /pipelines/parse` - Validates pipeline DAG structure and returns execution order
+
+## 📄 License
+
+This project is submitted as part of the VectorShift technical assessment.

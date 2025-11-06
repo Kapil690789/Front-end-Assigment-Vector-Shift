@@ -11,6 +11,9 @@ import { LLMNode } from './nodes/llmNode';
 import { OutputNode } from './nodes/outputNode';
 import { TextNode } from './nodes/textNode';
 
+// (New) Import our controls
+import { FlowControls } from './FlowControls';
+
 import 'reactflow/dist/style.css';
 
 const gridSize = 20;
@@ -80,7 +83,7 @@ export const PipelineUI = () => {
             addNode(newNode);
           }
         },
-        [reactFlowInstance, addNode, getNodeID] // Fixed the ESLint warning
+        [reactFlowInstance, addNode, getNodeID]
     );
 
     const onDragOver = useCallback((event) => {
@@ -92,6 +95,10 @@ export const PipelineUI = () => {
         <>
         {/* Make the wrapper div fill the 'flex-grow' container from App.js */}
         <div ref={reactFlowWrapper} style={{width: '100%', height: '75vh'}}>
+            
+            {/* (New) Add the Save/Restore buttons here */}
+            <FlowControls />
+            
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
@@ -116,7 +123,7 @@ export const PipelineUI = () => {
                     border: '1px solid #555',
                   }}
                   nodeColor="#fff"
-                  maskColor="#55555580"
+                  maskColor="#55555180"
                 />
             </ReactFlow>
         </div>

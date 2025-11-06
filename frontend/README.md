@@ -2,6 +2,8 @@
 
 A full-stack, interactive pipeline editor for building, validating, and analyzing node-based workflows with a React frontend and FastAPI backend.
 
+🔗 **[View on GitHub](https://github.com/Kapil690789/Front-end-Assigment-Vector-Shift)**
+
 ## 🚀 Core Features
 
 ### Assignment Requirements
@@ -18,16 +20,23 @@ Fully functional text node with automatic variable detection. Parses content for
 **Part 4: Backend Integration**  
 The Submit button sends pipeline data to a FastAPI backend that validates the workflow as a Directed Acyclic Graph (DAG) and returns a detailed analysis report.
 
-## ✨ Bonus Features
+## ✨ Advanced Features
 
-- **Save & Restore**: Workflows persist in localStorage, preventing data loss on page refresh
-- **Comprehensive Testing**: Full pytest suite validates backend DAG logic
-- **Smart API Response**: Backend returns topological execution order, not just boolean validation
-- **Professional UX/UI**:
-  - Non-blocking toast notifications via `react-hot-toast`
-  - Loading states with disabled submit button during API calls
-  - Icon-enhanced nodes using `react-icons`
-  - Keyboard shortcuts (Backspace/Delete) for node and edge deletion
+### State Persistence
+Workflows automatically save to localStorage, ensuring no data loss on page refresh or accidental closure.
+
+### Intelligent Validation
+The backend performs comprehensive DAG analysis and returns the optimal topological execution order, not just boolean validation.
+
+### Production-Ready Testing
+Full pytest suite with 100% coverage of DAG validation logic, ensuring reliability and correctness.
+
+### Enhanced User Experience
+- **Smart Notifications**: Non-blocking toast messages for real-time feedback
+- **Loading States**: Visual indicators during API calls with disabled controls
+- **Visual Clarity**: Icon-enhanced nodes for instant recognition
+- **Keyboard Navigation**: Delete nodes and edges using Backspace/Delete keys
+- **Responsive Design**: Fluid layouts that adapt to different screen sizes
 
 ## 💻 Tech Stack
 
